@@ -78,7 +78,8 @@ After entering an import filename, a default filenames is filled for the logging
 
 You can also use the PbnVerifier in a batch mode by entering the import filename and one or more options:
 
-```    java -cp PbnJVeri.jar PbnVerifier [options] <filename> [options]
+```    
+java -cp PbnJVeri.jar PbnVerifier [options] <filename> [options]
 with arguments:
       <filename>       filename of import PBN file
       -e               export the import PBN file
