@@ -5,7 +5,7 @@ and PBN 2.1 . The program is also able to convert PBN files from import format
 to export format. The PBN standard and PBN files can be found on the PBN homepages:
 
 * http://www.tistis.nl/pbn
-* *http://www.kolumbus.fi/sackab/kgb
+* http://www.kolumbus.fi/sackab/kgb
 
 This program has been ported from the PBN Verifier that has been
 written in C and processes only PBN 1.0 files. The Java PbnVerifier
