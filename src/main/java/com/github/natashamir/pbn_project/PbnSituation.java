@@ -5,24 +5,20 @@ package com.github.natashamir.pbn_project;/*
  * PBN    :     1.0
  */
 
-public class PbnSituation
-{
-  private PbnSide               mDealer;
-  private PbnVulner             mVulner;
+public class PbnSituation {
+    private final PbnSide mDealer;
+    private final PbnVulner mVulner;
 
-  public                        PbnSituation()
-  {
-    mDealer = new PbnSide();
-    mVulner = new PbnVulner();
-  }
+    public PbnSituation() {
+        mDealer = new PbnSide();
+        mVulner = new PbnVulner();
+    }
 
-  public PbnSide                GetDealer()
-  {
-    return mDealer;
-  }
+    public PbnSide GetDealer() {
+        return mDealer;
+    }
 
-  public PbnVulner              GetVulner()
-  {
-    return mVulner;
-  }
+    public PbnVulner GetVulner() {
+        return mVulner;
+    }
 }

@@ -5,32 +5,27 @@ package com.github.natashamir.pbn_project;/*
  * PBN    :     1.0
  */
 
-public class PbnTrick
-{
-  static final int              NUMBER = 13;
+public class PbnTrick {
+    static final int NUMBER = 13;
 
-  private PbnCard []            maCards;
+    private final PbnCard[] maCards;
 
-  public                        PbnTrick()
-  {
-    maCards = new PbnCard[ PbnSide.NUMBER ];
+    public PbnTrick() {
+        maCards = new PbnCard[PbnSide.NUMBER];
 
-    for ( int i = 0; i < PbnSide.NUMBER; i++ )
-    {
-      maCards[ i ] = new PbnCard();
+        for (int i = 0; i < PbnSide.NUMBER; i++) {
+            maCards[i] = new PbnCard();
+        }
     }
-  }
 
-  public PbnCard                Get(
-  PbnSide                       oSide )
-  {
-    return maCards[ oSide.Get() ];
-  }
+    public PbnCard Get(
+            PbnSide oSide) {
+        return maCards[oSide.Get()];
+    }
 
-  public void                   Set(
-  PbnSide                       oSide,
-  PbnCard                       oCard )
-  {
-    maCards[ oSide.Get() ].Set( oCard );
-  }
+    public void Set(
+            PbnSide oSide,
+            PbnCard oCard) {
+        maCards[oSide.Get()].Set(oCard);
+    }
 }

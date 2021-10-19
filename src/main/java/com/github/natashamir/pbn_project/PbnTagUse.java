@@ -8,11 +8,10 @@ package com.github.natashamir.pbn_project;/*
  * -------
  */
 
-public class PbnTagUse
-{
-  public static final int       NONE = 0;
-  public static final int       USED = 1;
-  public static final int       PREV = 2;   // Same as previous due to '#'
-  public static final int       HSHS = 3;   // Tag starting with "##"
-  public static final int       COPY = 4;   // Same as previous due to '##'
+public class PbnTagUse {
+    public static final int NONE = 0;
+    public static final int USED = 1;
+    public static final int PREV = 2;   // Same as previous due to '#'
+    public static final int HSHS = 3;   // Tag starting with "##"
+    public static final int COPY = 4;   // Same as previous due to '##'
 }

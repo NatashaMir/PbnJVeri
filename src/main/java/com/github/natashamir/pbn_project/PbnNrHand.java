@@ -5,68 +5,57 @@ package com.github.natashamir.pbn_project;/*
  * PBN    :     1.0
  */
 
-public class PbnNrHand
-{
-  private int []                maNrRanks;
+public class PbnNrHand {
+    private final int[] maNrRanks;
 
-  public                        PbnNrHand()
-  {
-    maNrRanks = new int[ PbnSuit.NUMBER ];
-  }
-
-  public int                    GetNrRanks(
-  PbnSuit                       oSuit )
-  {
-    return maNrRanks[ oSuit.Get() ];
-  }
-
-  // Get number of ranks of all suits.
-  public int                    GetNrRanks()
-  {
-    int                         iNrRanks = 0;
-
-    for ( int iSuit = 0; iSuit < PbnSuit.NUMBER; iSuit++ )
-    {
-      iNrRanks += maNrRanks[ iSuit ];
+    public PbnNrHand() {
+        maNrRanks = new int[PbnSuit.NUMBER];
     }
 
-    return iNrRanks;
-  }
-
-  public boolean                PlayCard(
-  PbnSuit                       oSuit )
-  {
-    int                         iSuit = oSuit.Get();
-
-    if ( maNrRanks[ iSuit ] == 0 )
-    {
-      return false;
+    public int GetNrRanks(
+            PbnSuit oSuit) {
+        return maNrRanks[oSuit.Get()];
     }
 
-    maNrRanks[ iSuit ]--;
-    return true;
-  }
+    // Get number of ranks of all suits.
+    public int GetNrRanks() {
+        int iNrRanks = 0;
 
-  public boolean                UnplayCard(
-  PbnSuit                       oSuit )
-  {
-    int                         iSuit = oSuit.Get();
+        for (int iSuit = 0; iSuit < PbnSuit.NUMBER; iSuit++) {
+            iNrRanks += maNrRanks[iSuit];
+        }
 
-    if ( maNrRanks[ iSuit ] >= PbnRank.NUMBER )
-    {
-      return false;
+        return iNrRanks;
     }
 
-    maNrRanks[ iSuit ]++;
-    return true;
-  }
+    public boolean PlayCard(
+            PbnSuit oSuit) {
+        int iSuit = oSuit.Get();
 
-  public void                   Compute(
-  PbnHand                       oHand )
-  {
-    for ( int iSuit = 0; iSuit < PbnSuit.NUMBER; iSuit++ )
-    {
-      maNrRanks[ iSuit ] = oHand.GetNrRanks( iSuit );
+        if (maNrRanks[iSuit] == 0) {
+            return false;
+        }
+
+        maNrRanks[iSuit]--;
+        return true;
     }
-  }
+
+    public boolean UnplayCard(
+            PbnSuit oSuit) {
+        int iSuit = oSuit.Get();
+
+        if (maNrRanks[iSuit] >= PbnRank.NUMBER) {
+            return false;
+        }
+
+        maNrRanks[iSuit]++;
+        return true;
+    }
+
+    public void Compute(
+            PbnHand oHand) {
+        for (int iSuit = 0; iSuit < PbnSuit.NUMBER; iSuit++) {
+            maNrRanks[iSuit] = oHand.GetNrRanks(iSuit);
+        }
+    }
 }
