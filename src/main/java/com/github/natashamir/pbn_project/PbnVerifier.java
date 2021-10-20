@@ -62,12 +62,10 @@ public class PbnVerifier extends Frame
     private final String[] PbnVersions = {" PBN 2.1 ", " PBN 2.0 ", " PBN 1.0 "};
 
 
-    public PbnVerifier(
-            String[] args,
-            boolean bApplet) {
+    public PbnVerifier(boolean bApplet, String... args) {
         if (!((args == null)
                 || (args.length == 0))) {
-            MainVerifier(args);
+            mainVerifier(args);
             return;
         }
 
@@ -145,7 +143,7 @@ public class PbnVerifier extends Frame
     public static void main(String[] args) {
         Frame lVerifier;
 
-        lVerifier = new PbnVerifier(args, false);
+        lVerifier = new PbnVerifier(false, args);
         if ((args == null)
                 || (args.length == 0)) {
             lVerifier.show();
@@ -336,7 +334,7 @@ public class PbnVerifier extends Frame
         }
     }
 
-    private void ActionVerify(
+    void actionVerify(
             String oImportFilename,
             String oExportFilename,
             String oLoggingFilename,
@@ -433,7 +431,7 @@ public class PbnVerifier extends Frame
                 mbFileLogging = true;
             }
         } else if (lName.equals("Verify")) {
-            ActionVerify(mImportTextField.getText()
+            actionVerify(mImportTextField.getText()
                     , mExportTextField.getText()
                     , mLoggingTextField.getText()
                     , mNoCR.getState()
@@ -493,8 +491,7 @@ public class PbnVerifier extends Frame
         }
     }
 
-    private void MainVerifier(
-            String[] args) {
+    private void mainVerifier(String[] args) {
         String arg;
         String lImportFilename = null;
         String lExportFilename = null;
@@ -540,7 +537,7 @@ public class PbnVerifier extends Frame
         }
 
         if (lImportFilename != null) {
-            ActionVerify(lImportFilename
+            actionVerify(lImportFilename
                     , lExportFilename
                     , lLoggingFilename
                     , bNoCR
