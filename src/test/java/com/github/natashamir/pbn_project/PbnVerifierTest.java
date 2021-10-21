@@ -1,32 +1,33 @@
 package com.github.natashamir.pbn_project;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PbnVerifierTest {
 
+    @TempDir
+    static Path tempDir;
+
     @Test
-    public void testActionVerify() {
-        new PbnVerifier(false, "src/test/resources/correct_10.pbn", "-Eresult_10.pbn");
+    public void testActionVerify() throws IOException {
 
-        try {
+        Path path = tempDir.resolve("result_checked_10.pbn");
 
-            InputStream inputStream1 = new FileInputStream("src/test/resources/result_10.pbn");
-            InputStream inputStream2 = new FileInputStream("C:\\pbn\\PbnJVeri\\result_10.pbn");
+        new PbnVerifier(false, "src/test/resources/correct_10.pbn", "-E"+path);
 
-            assertTrue(IOUtils.contentEquals(inputStream1, inputStream2));
+        List<String> expected = Files.readAllLines(Paths.get("src/test/resources/result_10.pbn"), StandardCharsets.ISO_8859_1);
+        List<String> actual = Files.readAllLines(path, StandardCharsets.ISO_8859_1);
 
-        } catch (IOException e) {
-            System.out.println("IOException opening input stream");
-            e.printStackTrace();
-        }
-
+        assertEquals(expected, actual);
     }
 
 }
