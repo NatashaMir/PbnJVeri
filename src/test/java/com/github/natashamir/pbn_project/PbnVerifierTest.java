@@ -18,13 +18,52 @@ public class PbnVerifierTest {
     static Path tempDir;
 
     @Test
-    public void testActionVerify() throws IOException {
+    public void testActionVerifyVersion10() throws IOException {
 
-        Path path = tempDir.resolve("result_checked_10.pbn");
+        Path path = tempDir.resolve(String.format("result_checked_10.pbn"));
 
         new PbnVerifier(false, "src/test/resources/correct_10.pbn", "-E"+path);
 
         List<String> expected = Files.readAllLines(Paths.get("src/test/resources/result_10.pbn"), StandardCharsets.ISO_8859_1);
+        List<String> actual = Files.readAllLines(path, StandardCharsets.ISO_8859_1);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testActionVerifyVersion20() throws IOException {
+
+        Path path = tempDir.resolve(String.format("result_checked_20.pbn"));
+
+        new PbnVerifier(false, "src/test/resources/correct_20.pbn", "-E"+path, "-20");
+
+        List<String> expected = Files.readAllLines(Paths.get("src/test/resources/result_20.pbn"), StandardCharsets.ISO_8859_1);
+        List<String> actual = Files.readAllLines(path, StandardCharsets.ISO_8859_1);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testActionVerifyVersion21() throws IOException {
+
+        Path path = tempDir.resolve(String.format("result_checked_21.pbn"));
+
+        new PbnVerifier(false, "src/test/resources/correct_21.pbn", "-E"+path, "-21");
+
+        List<String> expected = Files.readAllLines(Paths.get("src/test/resources/result_21.pbn"), StandardCharsets.ISO_8859_1);
+        List<String> actual = Files.readAllLines(path, StandardCharsets.ISO_8859_1);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testActionVerifyDifferentVersion() throws IOException {
+
+        Path path = tempDir.resolve(String.format("result_checked_10_21.pbn"));
+
+        new PbnVerifier(false, "src/test/resources/correct_10.pbn", "-E"+path, "-21");
+
+        List<String> expected = Files.readAllLines(Paths.get("src/test/resources/result_10_21.pbn"), StandardCharsets.ISO_8859_1);
         List<String> actual = Files.readAllLines(path, StandardCharsets.ISO_8859_1);
 
         assertEquals(expected, actual);
