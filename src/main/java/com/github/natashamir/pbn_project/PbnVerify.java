@@ -22,14 +22,16 @@ public class PbnVerify {
         mVeriStat = new PbnVeriStat();
     }
 
-    public PbnError Exec(
+    public PbnError exec(
             RandomAccessFile oImportRaf,
             FileOutputStream oExportFos,
             FileOutputStream oLoggingFos,
             boolean bNoCR,
-            boolean bPrint) {
+            boolean bPrint,
+            PbnExporter lExport
+            ) {
         PbnImport lImport = new PbnImport();
-        PbnExport lExport = new PbnExport();
+        //lExport = new PbnExport();
         PbnError lVerifyError = new PbnError();
 
         long FilePosIn = 0;
@@ -43,22 +45,22 @@ public class PbnVerify {
         lImport.SetInherit(lInherit);
 
         if (bExport) {
-            lExport.SetExportFile(oExportFos);
-            lExport.NoCR(bNoCR);
+            lExport.setExportFile(oExportFos);
+            lExport.noCR(bNoCR);
 
             switch (PbnGen.GetVersion()) {
                 case PbnGen.VERSION_10:
-                    lExport.ExportLine("% PBN 1.0");
+                    lExport.exportLine("% PBN 1.0");
                     break;
                 case PbnGen.VERSION_20:
-                    lExport.ExportLine("% PBN 2.0");
+                    lExport.exportLine("% PBN 2.0");
                     break;
                 case PbnGen.VERSION_21:
-                    lExport.ExportLine("% PBN 2.1");
+                    lExport.exportLine("% PBN 2.1");
                     break;
             }
-            lExport.ExportLine("% EXPORT");
-            lExport.ExportLine("%");
+            lExport.exportLine("% EXPORT");
+            lExport.exportLine("%");
         }
 
         while (!bReady) {
@@ -102,7 +104,7 @@ public class PbnVerify {
 
                 if (!lError.HasSeverity(PbnError.SEV_WARNING)) {
                     if (bExport) {
-                        lExport.Write(lGameData
+                        lExport.write(lGameData
                                 , lGameTags);
                     }
                 }
@@ -120,13 +122,13 @@ public class PbnVerify {
         lImport.CloseLogFile();
 
         if (bExport) {
-            lExport.Flush();
+            lExport.flush();
         }
 
         return lVerifyError;
     }
 
-    public String GetStat() {
+    public String getStat() {
         return mVeriStat.toString();
     }
 }

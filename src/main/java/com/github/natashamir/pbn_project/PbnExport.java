@@ -65,17 +65,17 @@ class PbnExportBuffer {
         mOutputLine = new StringBuffer();
     }
 
-    public void Flush() {
+    public void flush() {
         if (mOutputLine.length() > 0) {
-            Write();
+            write();
         }
     }
 
-    public void Reset() {
+    public void reset() {
         mOutputLine.setLength(0);
     }
 
-    public void Text(
+    public void text(
             String oString) {
         int BufferLength = mOutputLine.length();
         int TextLength = oString.length();
@@ -87,7 +87,7 @@ class PbnExportBuffer {
 
         if ((BufferLength > 0) &&
                 (BufferLength + SpaceLength + TextLength >= MAX_LINE_LENGTH)) {
-            Write();
+            write();
             SpaceLength = 0;
         }
 
@@ -101,17 +101,17 @@ class PbnExportBuffer {
          * Remove the 'eol', and print it immediately.
          */
             mOutputLine.setLength(mOutputLine.length() - 1);
-            Write();
+            write();
         }
     }
 
-    public void Write() {
-        mExport.ExportLine(mOutputLine.toString());
-        Reset();
+    public void write() {
+        mExport.exportLine(mOutputLine.toString());
+        reset();
     }
 }
 
-public class PbnExport {
+public class PbnExport implements PbnExporter  {
     private final PbnExportBuffer mExportBuffer;
     private boolean mbNoCR;
     private DataOutputStream mExpOs;
@@ -125,7 +125,7 @@ public class PbnExport {
         mbNoCR = false;
     }
 
-    public void ExportLine(
+    public void exportLine(
             String oString) {
         if (mExpOs != null) {
             try {
@@ -140,7 +140,7 @@ public class PbnExport {
         }
     }
 
-    private PbnSide GetLeader() {
+    private PbnSide getLeader() {
         PbnSide lLeader;
 
         lLeader = new PbnSide(mGameData.GetEndPosSide());
@@ -152,7 +152,7 @@ public class PbnExport {
         return lLeader;
     }
 
-    private void ExportTag(
+    private void exportTag(
             PbnTagId oTagId,
             String oString) {
         StringBuffer lStringBuffer;
@@ -193,10 +193,10 @@ public class PbnExport {
             lStringBuffer.append(oString.substring(SpacePos + 1));
         }
 
-        ExportLine(lStringBuffer.toString());
+        exportLine(lStringBuffer.toString());
     }
 
-    private String ExportDeal() {
+    private String exportDeal() {
         int NrUnknownSides = 0;
         PbnDeal lDeal = mGameData.GetDeal();
         PbnSide lSide;
@@ -246,7 +246,7 @@ public class PbnExport {
         return lSB.toString();
     }
 
-    private void ExportComment(
+    private void exportComment(
             PbnComment oComment) {
         String[] laStrings = oComment.GetStrings();
         int iLength = Array.getLength(laStrings);
@@ -254,30 +254,30 @@ public class PbnExport {
 
         for (int i = 0; i < iLength; i++) {
             lString = laStrings[i];
-            mExportBuffer.Text(lString.substring(1));
+            mExportBuffer.text(lString.substring(1));
 
             switch (lString.charAt(0)) {
                 case PbnComment.BEGIN:
                 case PbnComment.NEXT:
                 case PbnComment.EOL:
-                    mExportBuffer.Flush();
+                    mExportBuffer.flush();
                     break;
             }
         }
     }
 
-    private void ExportCommentTag(
+    private void exportCommentTag(
             PbnComment oComment) {
-        ExportComment(oComment);
-        mExportBuffer.Flush();
+        exportComment(oComment);
+        mExportBuffer.flush();
     }
 
-    private void ExportCall(
+    private void exportCall(
             PbnCall oCall) {
-        mExportBuffer.Text(oCall.toString());
+        mExportBuffer.text(oCall.toString());
     }
 
-    private void ExportCard(
+    private void exportCard(
             PbnCard oCard,
             char cIllegal) {
         String lString = oCard.toString();
@@ -286,17 +286,17 @@ public class PbnExport {
             lString = "^" + cIllegal + " " + lString;
         }
 
-        mExportBuffer.Text(lString);
+        mExportBuffer.text(lString);
     }
 
-    private void ExportNoteRef(
+    private void exportNoteRef(
             PbnNote oNote) {
         if (oNote.IsValid()) {
-            mExportBuffer.Text("=" + oNote.Get() + "=");
+            mExportBuffer.text("=" + oNote.Get() + "=");
         }
     }
 
-    private void ExportSuffix(
+    private void exportSuffix(
             PbnNag[] aoNags) {
         int iLength = Array.getLength(aoNags);
         PbnNag lNag;
@@ -304,12 +304,12 @@ public class PbnExport {
         for (int i = 0; i < iLength; i++) {
             lNag = aoNags[i];
             if (lNag.IsSuffix()) {
-                mExportBuffer.Text("$" + lNag.Get());
+                mExportBuffer.text("$" + lNag.Get());
             }
         }
     }
 
-    private void ExportNags(
+    private void exportNags(
             PbnNag[] aoNags) {
         int iLength = Array.getLength(aoNags);
         PbnNag lNag;
@@ -317,35 +317,35 @@ public class PbnExport {
         for (int i = 0; i < iLength; i++) {
             lNag = aoNags[i];
             if (!lNag.IsSuffix()) {
-                mExportBuffer.Text("$" + lNag.Get());
+                mExportBuffer.text("$" + lNag.Get());
             }
         }
     }
 
-    private void ExportMoveAnno(
+    private void exportMoveAnno(
             PbnMoveAnno oMoveAnno) {
-        ExportComment(oMoveAnno.GetComment(PbnCommentAdmin.TYPE_MOVE));
+        exportComment(oMoveAnno.GetComment(PbnCommentAdmin.TYPE_MOVE));
 
-        ExportNoteRef(oMoveAnno.GetNote());
-        ExportComment(oMoveAnno.GetComment(PbnCommentAdmin.TYPE_NOTE_REF));
+        exportNoteRef(oMoveAnno.GetNote());
+        exportComment(oMoveAnno.GetComment(PbnCommentAdmin.TYPE_NOTE_REF));
 
-        ExportSuffix(oMoveAnno.GetNags());
-        ExportComment(oMoveAnno.GetComment(PbnCommentAdmin.TYPE_SUFFIX));
+        exportSuffix(oMoveAnno.GetNags());
+        exportComment(oMoveAnno.GetComment(PbnCommentAdmin.TYPE_SUFFIX));
 
-        ExportNags(oMoveAnno.GetNags());
-        ExportComment(oMoveAnno.GetComment(PbnCommentAdmin.TYPE_NAG));
+        exportNags(oMoveAnno.GetNags());
+        exportComment(oMoveAnno.GetComment(PbnCommentAdmin.TYPE_NAG));
     }
 
-    private void ExportNote(
+    private void exportNote(
             int iNote,
             PbnMoveNote lMoveNote,
             PbnComment lComment) {
-        ExportTag(new PbnTagId(PbnTagId.NOTE)
+        exportTag(new PbnTagId(PbnTagId.NOTE)
                 , "" + iNote + ":" + lMoveNote.GetTagValue());
-        ExportCommentTag(lComment);
+        exportCommentTag(lComment);
     }
 
-    private void ExportCallNotes() {
+    private void exportCallNotes() {
         PbnMoveNote lMoveNote;
         PbnComment lComment;
 
@@ -353,12 +353,12 @@ public class PbnExport {
             lMoveNote = mGameTags.GetCallNote(iNote);
             if (lMoveNote.IsUsed()) {
                 lComment = mGameTags.GetCallNoteComment(iNote);
-                ExportNote(iNote, lMoveNote, lComment);
+                exportNote(iNote, lMoveNote, lComment);
             }
         }
     }
 
-    private void ExportCardNotes() {
+    private void exportCardNotes() {
         PbnMoveNote lMoveNote;
         PbnComment lComment;
 
@@ -366,12 +366,12 @@ public class PbnExport {
             lMoveNote = mGameTags.GetCardNote(iNote);
             if (lMoveNote.IsUsed()) {
                 lComment = mGameTags.GetCardNoteComment(iNote);
-                ExportNote(iNote, lMoveNote, lComment);
+                exportNote(iNote, lMoveNote, lComment);
             }
         }
     }
 
-    private void ExportAuction() {
+    private void exportAuction() {
         PbnAuction lAuction = mGameData.GetAuction();
         PbnTagId lTagId = new PbnTagId(PbnTagId.AUCTION);
 
@@ -389,8 +389,8 @@ public class PbnExport {
         PbnSide lDealer;
         lDealer = mGameData.GetSituation().GetDealer();
 
-        ExportTag(lTagId, lDealer.toCharacter());
-        ExportCommentTag(mGameTags.GetTagComment(lTagId));
+        exportTag(lTagId, lDealer.toCharacter());
+        exportCommentTag(mGameTags.GetTagComment(lTagId));
 
         int iNrSides = PbnSide.NUMBER;
         /*
@@ -399,12 +399,12 @@ public class PbnExport {
          */
 
         for (int iCall = 0; iCall < iNrCalls; iCall++) {
-            ExportCall(lAuction.GetCall(iCall));
-            ExportMoveAnno(mGameTags.GetCallAnno(iCall));
+            exportCall(lAuction.GetCall(iCall));
+            exportMoveAnno(mGameTags.GetCallAnno(iCall));
 
             if (--iNrSides == 0) {
                 iNrSides = PbnSide.NUMBER;
-                mExportBuffer.Flush();
+                mExportBuffer.flush();
             }
         }
 
@@ -412,13 +412,13 @@ public class PbnExport {
          * If the auction ends prematurely, then add '*'.
          */
         if (lAuction.GetNrToPass() > 0) {
-            mExportBuffer.Text("*");
+            mExportBuffer.text("*");
         }
-        mExportBuffer.Flush();
-        ExportCallNotes();
+        mExportBuffer.flush();
+        exportCallNotes();
     }
 
-    private void PrepareExportCard(
+    private void prepareExportCard(
             PbnSide oSide,
             PbnCard oCard) {
         if (!mExAdmin.mDeal.PlayCard(oSide, oCard)) {
@@ -433,7 +433,7 @@ public class PbnExport {
         }
     }
 
-    private int PrepareExportPlay() {
+    private int prepareExportPlay() {
         PbnDeal lExportDeal = mExAdmin.mDeal;
         PbnHand lUnknownHand = mExAdmin.mUnknownHand;
         PbnSuit lSuit = new PbnSuit(PbnSuit.CLUBS);
@@ -461,7 +461,7 @@ public class PbnExport {
             lSuit.Next();
         }
 
-        lPlaySide = GetLeader();
+        lPlaySide = getLeader();
 
         for (iTrick = 0; iTrick < PbnTrick.NUMBER; iTrick++) { /*
          * Check if any cards are played.
@@ -495,7 +495,7 @@ public class PbnExport {
                 /*******/
             }
 
-            PrepareExportCard(lPlaySide, lLeadCard);
+            prepareExportCard(lPlaySide, lLeadCard);
 
             /*
              * Determine the winner side.
@@ -537,7 +537,7 @@ public class PbnExport {
                     lWinnerSide.Set(lPlaySide);
                 }
 
-                PrepareExportCard(lPlaySide, lPlayCard);
+                prepareExportCard(lPlaySide, lPlayCard);
             }
 
             lPlaySide.Set(lWinnerSide);
@@ -546,7 +546,7 @@ public class PbnExport {
         return iTrick;
     }
 
-    private void ExportPlay() {
+    private void exportPlay() {
         PbnPlay lPlay = mGameData.GetPlay();
         PbnTagId lTagId = new PbnTagId(PbnTagId.PLAY);
         int iNrTricks;
@@ -556,17 +556,17 @@ public class PbnExport {
         int iNrSides;
         PbnCard lPlayCard;
 
-        iNrTricks = PrepareExportPlay();
+        iNrTricks = prepareExportPlay();
 
         if (iNrTricks == 0) {
             return;
             /*****/
         }
 
-        lPlayFirst = GetLeader();
+        lPlayFirst = getLeader();
 
-        ExportTag(lTagId, lPlayFirst.toCharacter());
-        ExportCommentTag(mGameTags.GetTagComment(lTagId));
+        exportTag(lTagId, lPlayFirst.toCharacter());
+        exportCommentTag(mGameTags.GetTagComment(lTagId));
 
         iNrLastSides = 0;
         lPlaySide = new PbnSide(lPlayFirst);
@@ -588,14 +588,14 @@ public class PbnExport {
 
             for (int iSide = 0; iSide < iNrSides; iSide++) {
                 lPlayCard = lPlay.GetCard(iTrick, lPlaySide);
-                ExportCard(lPlayCard
+                exportCard(lPlayCard
                         , mExAdmin.maacIllegals[iTrick][lPlaySide.Get()]);
-                ExportMoveAnno(mGameTags.GetCardAnno(iTrick, lPlaySide));
+                exportMoveAnno(mGameTags.GetCardAnno(iTrick, lPlaySide));
 
                 lPlaySide.Next();
             }
 
-            mExportBuffer.Flush();
+            mExportBuffer.flush();
         }
 
         /*
@@ -603,15 +603,15 @@ public class PbnExport {
          */
         if ((iNrTricks < PbnTrick.NUMBER)
                 || (iNrLastSides < PbnSide.NUMBER)) {
-            mExportBuffer.Text("*");
+            mExportBuffer.text("*");
         }
 
-        mExportBuffer.Flush();
+        mExportBuffer.flush();
 
-        ExportCardNotes();
+        exportCardNotes();
     }
 
-    private void ExportGameTag(
+    private void exportGameTag(
             boolean bMandatory,
             PbnTagId oTagId) {
         String lTagValue = null;
@@ -642,7 +642,7 @@ public class PbnExport {
 
             case PbnTagId.DEAL:
                 if (mGameData.GetSituation().GetDealer().IsValid()) {
-                    lTagValue = ExportDeal();
+                    lTagValue = exportDeal();
                 } else {
                     lTagValue = mGameTags.GetTagValue(oTagId);
                 }
@@ -701,20 +701,20 @@ public class PbnExport {
         }
 
         if (bEmpty) {
-            ExportTag(oTagId, "");
-            ExportCommentTag(mGameTags.GetTagComment(oTagId));
+            exportTag(oTagId, "");
+            exportCommentTag(mGameTags.GetTagComment(oTagId));
         } else if (lTagValue != null) {
-            ExportTag(oTagId, lTagValue);
-            ExportCommentTag(mGameTags.GetTagComment(oTagId));
+            exportTag(oTagId, lTagValue);
+            exportCommentTag(mGameTags.GetTagComment(oTagId));
         }
     }
 
-    public void NoCR(
+    public void noCR(
             boolean bNoCR) {
         mbNoCR = bNoCR;
     }
 
-    private void ExportTable(
+    private void exportTable(
             PbnTable oTable,
             PbnTagId oTagId) {
         if (oTable == null) {
@@ -750,7 +750,7 @@ public class PbnExport {
                 break;
         }
 
-        ExportGameTag(false, oTagId);
+        exportGameTag(false, oTagId);
 
         Enumeration eRows = oTable.GetRows();
         String[] lRow;
@@ -764,11 +764,11 @@ public class PbnExport {
                 }
             }
 
-            ExportLine(lString);
+            exportLine(lString);
         }
     }
 
-    public void SetExportFile(
+    public void setExportFile(
             FileOutputStream oFos) {
         BufferedOutputStream lBos = new BufferedOutputStream(oFos);
         DataOutputStream lDos = new DataOutputStream(lBos);
@@ -776,7 +776,7 @@ public class PbnExport {
         mExpOs = lDos;
     }
 
-    public void Flush() {
+    public void flush() {
         try {
             mExpOs.flush();
         } catch (Exception e) {
@@ -784,7 +784,7 @@ public class PbnExport {
         }
     }
 
-    public void Write(
+    public void write(
             PbnGameData oGameData,
             PbnGameTags oGameTags) {
         mGameData = oGameData;
@@ -794,30 +794,30 @@ public class PbnExport {
         PbnTagId lTagId = new PbnTagId();
         Enumeration leTags;
 
-        ExportCommentTag(oGameTags.GetGameComment());
+        exportCommentTag(oGameTags.GetGameComment());
 
         leTags = PbnTagId.GetMtsTags();
         while (leTags.hasMoreElements()) {
             lTagId = (PbnTagId) leTags.nextElement();
-            ExportGameTag(true, lTagId);
+            exportGameTag(true, lTagId);
         }
 
         leTags = PbnTagId.GetOptionalTags();
         while (leTags.hasMoreElements()) {
             lTagId = (PbnTagId) leTags.nextElement();
-            ExportGameTag(false, lTagId);
+            exportGameTag(false, lTagId);
         }
 
-        ExportAuction();
-        ExportPlay();
+        exportAuction();
+        exportPlay();
 
         leTags = PbnTagId.GetSupplementalTags();
         while (leTags.hasMoreElements()) {
             lTagId = (PbnTagId) leTags.nextElement();
-            ExportTable(mGameTags.GetTable(lTagId), lTagId);
+            exportTable(mGameTags.GetTable(lTagId), lTagId);
         }
 
         // Write an extra empty line to end the game.
-        ExportLine("");
+        exportLine("");
     }
 }

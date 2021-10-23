@@ -375,11 +375,13 @@ public class PbnVerifier extends Frame
             PbnGen.SetParsing(PbnGen.PARSE_FIRST);
 
             try {
-                lError = lVerify.Exec(mImportRaf
+                lError = lVerify.exec(mImportRaf
                         , mExportFos
                         , mLoggingFos
                         , bNoCR
-                        , !bDialog);
+                        , !bDialog
+                        , new PbnExport()
+                );
             } catch (Exception e) {
                 PrintDialog(bDialog, this, "Program error"
                         , "You have found a bug !\n"
@@ -390,7 +392,7 @@ public class PbnVerifier extends Frame
                 this.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
             }
             PrintDialog(bDialog, this, "Verifier Result"
-                    , lVerify.GetStat());
+                    , lVerify.getStat());
         }
 
         CloseFiles();
