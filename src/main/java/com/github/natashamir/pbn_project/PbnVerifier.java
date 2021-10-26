@@ -380,7 +380,7 @@ public class PbnVerifier extends Frame
                         , mLoggingFos
                         , bNoCR
                         , !bDialog
-                        , new PbnExport()
+                        , new PbnExport(bNoCR)
                 );
             } catch (Exception e) {
                 PrintDialog(bDialog, this, "Program error"

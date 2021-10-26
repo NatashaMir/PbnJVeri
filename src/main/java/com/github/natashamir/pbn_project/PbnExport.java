@@ -119,10 +119,11 @@ public class PbnExport implements PbnExporter  {
     private PbnGameTags mGameTags;
     private PbnExportAdmin mExAdmin;
 
-    public PbnExport() {
+
+    public PbnExport(boolean mbNoCR) {
         mExportBuffer = new PbnExportBuffer(this);
         mExpOs = null;
-        mbNoCR = false;
+        this.mbNoCR = mbNoCR;
     }
 
     public void exportLine(
@@ -709,10 +710,10 @@ public class PbnExport implements PbnExporter  {
         }
     }
 
-    public void noCR(
+/*    public void noCR(
             boolean bNoCR) {
         mbNoCR = bNoCR;
-    }
+    }*/
 
     private void exportTable(
             PbnTable oTable,

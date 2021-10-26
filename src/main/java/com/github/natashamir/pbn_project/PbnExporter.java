@@ -16,7 +16,5 @@ public interface PbnExporter {
 
     void flush();
 
-    void noCR(
-            boolean bNoCR);
 
 }

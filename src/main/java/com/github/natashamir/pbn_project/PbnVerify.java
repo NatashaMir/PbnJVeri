@@ -46,7 +46,7 @@ public class PbnVerify {
 
         if (bExport) {
             lExport.setExportFile(oExportFos);
-            lExport.noCR(bNoCR);
+            //lExport.noCR(bNoCR);
 
             switch (PbnGen.GetVersion()) {
                 case PbnGen.VERSION_10:
