@@ -26,10 +26,9 @@ public class PbnVerify {
             RandomAccessFile oImportRaf,
             FileOutputStream oExportFos,
             FileOutputStream oLoggingFos,
-            boolean bNoCR,
             boolean bPrint,
             PbnExporter lExport
-            ) {
+    ) {
         PbnImport lImport = new PbnImport();
         //lExport = new PbnExport();
         PbnError lVerifyError = new PbnError();

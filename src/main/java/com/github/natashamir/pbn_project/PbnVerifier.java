@@ -378,7 +378,6 @@ public class PbnVerifier extends Frame
                 lError = lVerify.exec(mImportRaf
                         , mExportFos
                         , mLoggingFos
-                        , bNoCR
                         , !bDialog
                         , new PbnExport(bNoCR)
                 );
@@ -550,51 +549,3 @@ public class PbnVerifier extends Frame
     }
 }
 
-class PbnDialog extends Dialog {
-    public PbnDialog(
-            Frame oParent,
-            String oHeader,
-            String oText) {
-        super(oParent, oHeader, true);
-
-        Panel lPanel = new Panel();
-        int NrLines;
-        int Index;
-
-        for (NrLines = 0; ; NrLines++) {
-            Index = oText.indexOf("\n");
-            if (Index < 0) {
-                lPanel.add(new Label(oText));
-                break;
-            }
-            lPanel.add(new Label(oText.substring(0, Index)));
-            oText = oText.substring(Index + 1);
-        }
-        add(lPanel, "Center");
-
-        Button mOk = new Button("OK");
-        lPanel = new Panel();
-        lPanel.add(mOk);
-        add(lPanel, "South");
-
-        mOk.addActionListener(new ActionListener() {
-                                  public void actionPerformed(
-                                          ActionEvent evt) {
-                                      setVisible(false);
-                                  }
-                              }
-        );
-
-        addWindowListener(new WindowAdapter() {
-                              public void windowClosing(
-                                      WindowEvent evt) {
-                                  setVisible(false);
-                              }
-                          }
-        );
-
-        setLocation(150, 150);
-        setSize(300, 120 + NrLines * 30);
-        show();
-    }
-}
