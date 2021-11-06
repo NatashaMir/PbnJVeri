@@ -1,5 +1,6 @@
 package com.github.natashamir.pbn_project;
 
+import javax.xml.bind.JAXBException;
 import java.io.FileOutputStream;
 
 public interface PbnExporter {
@@ -12,7 +13,7 @@ public interface PbnExporter {
 
     void write(
             PbnGameData oGameData,
-            PbnGameTags oGameTags);
+            PbnGameTags oGameTags) throws JAXBException;
 
     void flush();
 

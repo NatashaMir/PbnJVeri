@@ -42,4 +42,27 @@ public class PbnVerifierExecTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void testActionVerifierExecXMLVersion10() throws IOException {
+
+        //Path path = tempDir.resolve(String.format("result_checked_10.xml"));
+        Path log = tempDir.resolve(String.format("result_checked_10.log"));
+        int lPBN10 = PbnGen.VERSION_10;
+
+        PbnVerify pbnVerifiy = new PbnVerify();
+
+        PbnGen.SetVersion(lPBN10);
+
+        try (RandomAccessFile r = new RandomAccessFile("src/test/resources/correct_10.pbn", "r");
+             FileOutputStream oLoggingFos = new FileOutputStream(log.toString());
+             FileOutputStream oExportFos = new FileOutputStream("result_10.xml");) {
+            pbnVerifiy.exec(r, oExportFos, oLoggingFos, true, new XMLExport(true));
+        }
+
+        List<String> expected = Files.readAllLines(Paths.get("src/test/resources/result_10.pbn"), StandardCharsets.ISO_8859_1);
+        List<String> actual = Files.readAllLines(Paths.get("C:\\pbn\\PbnJVeri\\result_10.xml"), StandardCharsets.ISO_8859_1);
+
+        assertEquals(expected, actual);
+    }
+
 }

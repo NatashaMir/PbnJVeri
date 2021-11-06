@@ -12,6 +12,7 @@ package com.github.natashamir.pbn_project;/*
  * 2011-09-12 Export PBN Version 2.1
  */
 
+import javax.xml.bind.JAXBException;
 import java.io.FileOutputStream;
 import java.io.RandomAccessFile;
 
@@ -103,8 +104,12 @@ public class PbnVerify {
 
                 if (!lError.HasSeverity(PbnError.SEV_WARNING)) {
                     if (bExport) {
-                        lExport.write(lGameData
-                                , lGameTags);
+                        try {
+                            lExport.write(lGameData
+                                    , lGameTags);
+                        } catch (JAXBException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
 
