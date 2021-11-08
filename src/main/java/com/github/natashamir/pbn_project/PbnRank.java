@@ -9,9 +9,17 @@ package com.github.natashamir.pbn_project;/*
  * 1999-02-12 Added FromChar.
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Definition of Rank
  */
+
+@XmlRootElement(name="pbnRank")
+@XmlAccessorType(XmlAccessType.FIELD)
+
 public class PbnRank {
     public static final int NONE = 0x0000;
     public static final int MIN = 0x0001;

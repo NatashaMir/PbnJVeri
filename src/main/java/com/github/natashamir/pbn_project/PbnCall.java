@@ -9,6 +9,13 @@ package com.github.natashamir.pbn_project;/*
  * 1999-01-03 Added GetNrTricks()
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="pbnCall")
+@XmlAccessorType(XmlAccessType.PROPERTY)
+
 public class PbnCall {
     public static final int TYPE_PASS = 0;
     public static final int TYPE_DBL = 1;
@@ -94,5 +101,13 @@ public class PbnCall {
             default:
                 return "";
         }
+    }
+
+
+    public String getmType() {
+        return toString();
+    }
+
+    public void setmType(String s) {
     }
 }

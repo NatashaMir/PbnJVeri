@@ -5,6 +5,13 @@ package com.github.natashamir.pbn_project;/*
  * PBN    :     1.0
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="pbnResult")
+@XmlAccessorType(XmlAccessType.PROPERTY)
+
 public class PbnResult {
     public static final int IDLE = -1;
     public static final int OK = 0;
@@ -121,5 +128,12 @@ public class PbnResult {
         }
 
         return string;
+    }
+
+    public String getmResult() {
+        return toString();
+    }
+
+    public void setmResult(String s) {
     }
 }

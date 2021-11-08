@@ -5,9 +5,17 @@ package com.github.natashamir.pbn_project;/*
  * PBN    :     1.0
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Definition of Trump
  */
+
+@XmlRootElement(name="pbnTrump")
+@XmlAccessorType(XmlAccessType.PROPERTY)
+
 public class PbnTrump {
     public static final int IDLE = -1;
     public static final int CLUBS = 0;
@@ -144,5 +152,13 @@ public class PbnTrump {
         }
 
         return string;
+    }
+
+    public String getmTrump() {
+        return toString();
+    }
+
+    public void setmTrump(String s) {
+
     }
 }

@@ -10,6 +10,13 @@ package com.github.natashamir.pbn_project;/*
  * 1999-05-14 Check number of tricks in contract
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="pbnAuction")
+@XmlAccessorType(XmlAccessType.FIELD)
+
 public class PbnAuction {
     private static final int SIDE_HIGH = 0xFFFF;
     private PbnCall[] maCalls;

@@ -16,20 +16,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="pbnGameData")
 @XmlAccessorType(XmlAccessType.FIELD)
+
 public class PbnGameData {
-    @XmlElement
+
     PbnSituation mSituation;
-    @XmlElement
     PbnDeal mDeal;
-    @XmlElement
     PbnContract mContract;
-    @XmlElement
     PbnResult mResult;
-    @XmlElement
     PbnAuction mAuction;
-    @XmlElement
     PbnPlay mPlay;
-    @XmlElement
     PbnSide mEndPosSide;
 
     public PbnGameData() {

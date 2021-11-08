@@ -5,6 +5,13 @@ package com.github.natashamir.pbn_project;/*
  * PBN    :     1.0
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="pbnHand")
+@XmlAccessorType(XmlAccessType.FIELD)
+
 public class PbnHand {
     private final PbnRanks[] maRanks;
 

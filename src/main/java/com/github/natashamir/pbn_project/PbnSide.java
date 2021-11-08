@@ -9,9 +9,17 @@ package com.github.natashamir.pbn_project;/*
  * 1999-03-28 Added FromChar.
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Definition of Side
  */
+
+@XmlRootElement(name="pbnSide")
+@XmlAccessorType(XmlAccessType.PROPERTY)
+
 public class PbnSide {
     public static final int IDLE = -1;
     public static final int SOUTH = 0;
@@ -147,6 +155,14 @@ public class PbnSide {
     public PbnSide toSide(
             int number) {
         return new PbnSide(mSide + number);
+    }
+
+    public String getSide(){
+        return toString();
+    }
+
+    public void setSide(String s){
+
     }
 
     public String toString() {

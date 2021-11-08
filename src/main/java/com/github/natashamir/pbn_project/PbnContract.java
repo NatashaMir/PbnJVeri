@@ -9,6 +9,13 @@ package com.github.natashamir.pbn_project;/*
  * 2002-08-25 Added IsPlayable()
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="pbnContract")
+@XmlAccessorType(XmlAccessType.FIELD)
+
 public class PbnContract {
     private final PbnSide mDeclarer;
     private int mNrTricks;

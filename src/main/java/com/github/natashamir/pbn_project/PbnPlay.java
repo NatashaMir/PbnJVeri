@@ -9,6 +9,13 @@ package com.github.natashamir.pbn_project;/*
  * 1999-05-19 check array index in GetCard() and SetCard().
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="pbnPlay")
+@XmlAccessorType(XmlAccessType.FIELD)
+
 public class PbnPlay {
     private final PbnTrick[] maTricks;
     private final PbnSide[] maFirsts;

@@ -7,6 +7,13 @@ package com.github.natashamir.pbn_project;/*
  * 1999-01-30 Added toString()
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="pbnRanks")
+@XmlAccessorType(XmlAccessType.PROPERTY)
+
 public class PbnRanks {
     private int mRanks;
 
@@ -113,5 +120,12 @@ public class PbnRanks {
         }
 
         return lCards.toString();
+    }
+
+    public String getmRanks() {
+        return toString();
+    }
+
+    public void setmRanks(String s) {
     }
 }

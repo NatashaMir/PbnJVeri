@@ -10,9 +10,17 @@ package com.github.natashamir.pbn_project;/*
  * 1999-09-06 add equals()
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Definition of Vulner
  */
+
+@XmlRootElement(name="pbnVulner")
+@XmlAccessorType(XmlAccessType.PROPERTY)
+
 public class PbnVulner {
     public static final int IDLE = -1;
     public static final int NONE = 0;
@@ -76,6 +84,14 @@ public class PbnVulner {
         return (mVulner == EW) || (mVulner == ALL);
     }
 
+    public String getmVulner(){
+        return toString();
+    }
+
+    public void setmVulner(String s){
+
+    }
+
     public String toString() {
         String string = S_IDLE;
 
@@ -107,4 +123,6 @@ public class PbnVulner {
 
         return string;
     }
+
+
 }

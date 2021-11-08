@@ -44,9 +44,8 @@ public class PbnVerifierExecTest {
 
     @Test
     public void testActionVerifierExecXMLVersion10() throws IOException {
-
         //Path path = tempDir.resolve(String.format("result_checked_10.xml"));
-        Path log = tempDir.resolve(String.format("result_checked_10.log"));
+        Path log = tempDir.resolve(String.format("result_checd_10.log"));
         int lPBN10 = PbnGen.VERSION_10;
 
         PbnVerify pbnVerifiy = new PbnVerify();

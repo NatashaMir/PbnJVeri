@@ -9,9 +9,17 @@ package com.github.natashamir.pbn_project;/*
  * 1999-05-12 add Is().
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Definition of Risk
  */
+
+@XmlRootElement(name="pbnRisk")
+@XmlAccessorType(XmlAccessType.PROPERTY)
+
 public class PbnRisk {
     public static final int IDLE = -1;
     public static final int NONE = 0;
@@ -81,5 +89,12 @@ public class PbnRisk {
         }
 
         return string;
+    }
+
+    public String getmRisk() {
+        return toString();
+    }
+
+    public void setmRisk(String s) {
     }
 }

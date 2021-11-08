@@ -25,6 +25,9 @@ package com.github.natashamir.pbn_project;/*
  * 2012-04-14 Check invalid lead card
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Enumeration;
 import java.util.Vector;
 
@@ -525,6 +528,8 @@ class PbnParser {
     }
 }
 
+@XmlRootElement(name="pbnTagChecker")
+@XmlAccessorType(XmlAccessType.FIELD)
 
 public class PbnTagChecker {
     private final PbnGameData mGameData;

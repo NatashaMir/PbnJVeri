@@ -9,6 +9,13 @@ package com.github.natashamir.pbn_project;/*
  * 1999-01-03 Added GetHand()
  */
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="pbnDeal")
+@XmlAccessorType(XmlAccessType.FIELD)
+
 public class PbnDeal {
     private final PbnHand[] maHands;
     private final PbnNrHand[] maNrHands;
