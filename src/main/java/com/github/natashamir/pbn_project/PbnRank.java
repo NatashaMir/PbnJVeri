@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 @XmlRootElement(name="pbnRank")
-@XmlAccessorType(XmlAccessType.FIELD)
+@XmlAccessorType(XmlAccessType.PROPERTY)
 
 public class PbnRank {
     public static final int NONE = 0x0000;
@@ -227,5 +227,12 @@ public class PbnRank {
         }
 
         return RankNames.substring(Index, Index + 1);
+    }
+
+    public String getmRank() {
+        return toCharacter();
+    }
+
+    public void setmRank(String s) {
     }
 }
