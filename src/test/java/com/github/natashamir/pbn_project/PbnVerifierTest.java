@@ -14,13 +14,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PbnVerifierTest {
 
-    @TempDir
-    static Path tempDir;
 
     @Test
-    public void testActionVerifyVersion10() throws IOException {
+    public void testActionVerifyVersion10(@TempDir Path tempDir) throws IOException {
 
-        Path path = tempDir.resolve(String.format("result_checked_10.pbn"));
+        Path path = tempDir.resolve("result_checked_10.pbn");
 
         new PbnVerifier(false, "src/test/resources/correct_10.pbn", "-E"+path);
 
@@ -31,9 +29,9 @@ public class PbnVerifierTest {
     }
 
     @Test
-    public void testActionVerifyVersion20() throws IOException {
+    public void testActionVerifyVersion20(@TempDir Path tempDir) throws IOException {
 
-        Path path = tempDir.resolve(String.format("result_checked_20.pbn"));
+        Path path = tempDir.resolve("result_checked_20.pbn");
 
         new PbnVerifier(false, "src/test/resources/correct_20.pbn", "-E"+path, "-20");
 
@@ -44,9 +42,9 @@ public class PbnVerifierTest {
     }
 
     @Test
-    public void testActionVerifyVersion21() throws IOException {
+    public void testActionVerifyVersion21(@TempDir Path tempDir) throws IOException {
 
-        Path path = tempDir.resolve(String.format("result_checked_21.pbn"));
+        Path path = tempDir.resolve("result_checked_21.pbn");
 
         new PbnVerifier(false, "src/test/resources/correct_21.pbn", "-E"+path, "-21");
 
@@ -57,9 +55,9 @@ public class PbnVerifierTest {
     }
 
     @Test
-    public void testActionVerifyDifferentVersion() throws IOException {
+    public void testActionVerifyDifferentVersion(@TempDir Path tempDir) throws IOException {
 
-        Path path = tempDir.resolve(String.format("result_checked_10_21.pbn"));
+        Path path = tempDir.resolve("result_checked_10_21.pbn");
 
         new PbnVerifier(false, "src/test/resources/correct_10.pbn", "-E"+path, "-21");
 

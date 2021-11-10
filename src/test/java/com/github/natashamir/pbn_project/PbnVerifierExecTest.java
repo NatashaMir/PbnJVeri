@@ -16,14 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PbnVerifierExecTest {
 
-    @TempDir
-    static Path tempDir;
-
     @Test
-    public void testActionVerifierExecVersion10() throws IOException {
+    public void testActionVerifierExecVersion10(@TempDir Path tempDir) throws IOException {
 
-        Path path = tempDir.resolve(String.format("result_checked_10.pbn"));
-        Path log = tempDir.resolve(String.format("result_checked_10.log"));
+        Path path = tempDir.resolve("result_checked_10.pbn");
+        Path log = tempDir.resolve("result_checked_10.log");
         int lPBN10 = PbnGen.VERSION_10;
 
         PbnVerify pbnVerifiy = new PbnVerify();
@@ -43,9 +40,9 @@ public class PbnVerifierExecTest {
     }
 
     @Test
-    public void testActionVerifierExecXMLVersion10() throws IOException {
-        //Path path = tempDir.resolve(String.format("result_checked_10.xml"));
-        Path log = tempDir.resolve(String.format("result_checked_10_onegame.log"));
+    public void testActionVerifierExecXMLVersion10(@TempDir Path tempDir) throws IOException {
+
+        Path log = tempDir.resolve("result_checked_10_onegame.log");
         int lPBN10 = PbnGen.VERSION_10;
 
         PbnVerify pbnVerifiy = new PbnVerify();
