@@ -1,0 +1,23 @@
+% ==================== game 1 ====================
+% Game with all irregularity situations
+%
+[Event "Test illegals"]
+[Dealer "N"]
+[Vulnerable "None"]
+[Deal "W:KQT2.AT.J6542.85 .63.AKQ987.A9732 A8654.KQ5.T.QJT6 J973.J98742.3.K4"]
+[Declarer "^S"]
+[Contract "5HX"]
+[Result "^5"]
+[Auction "W"]
+- ^S 1D ^I 1C
+4S ^I 3NT ^S ^S
+X 5H X AP
+[Play "W"]
+SK H3 S4 S3
+C5 C2 ^R S5 ^L CK
+S2 H6 ^R C6 S7
+C8 CA CT C4
+D2 DA DT D3
+D4 DK H5 H7
+-  -  -  H2
+*
